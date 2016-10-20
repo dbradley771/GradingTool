@@ -1,5 +1,11 @@
 /*
 --------------
+2016-10-20
+David Bradley
+
+Bug fix: Made sure the temp folder exsists before trying to use it.
+
+--------------
 2016-09-15
 Mai Ren
 
@@ -1367,8 +1373,14 @@ public class GradingTool extends JPanel implements ListSelectionListener, Action
     }
     
     private void copyToTempFolder() {
-        // Clear temp folder first
         File tempFolder = new File(TEMP_FOLDER_NAME);
+        
+        // Make sure temp folder exsists first
+        if (!tempFolder.exists()) {
+            tempFolder.mkdir();
+        }
+        
+        // Clear temp folder
         recursivelyDeleteFile(tempFolder);
 
         try {
